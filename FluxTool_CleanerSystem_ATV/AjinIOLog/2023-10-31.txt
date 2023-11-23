@@ -1,0 +1,2 @@
+[2023-10-31, 17:34:20] Could not do the open the driver
+[2023-10-31, 17:34:22] Could not do the open the driver
