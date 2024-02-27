@@ -597,7 +597,7 @@ namespace FluxTool_CleanerSystem_ATV
             }
             else if (Define.UserLevel == "User")
             {
-                F_ButtonVisible(true, false, true, true, false, true, true, false);
+                F_ButtonVisible(true, false, false, true, false, true, true, false);
             }
 
 
@@ -729,6 +729,7 @@ namespace FluxTool_CleanerSystem_ATV
                 }
             }
 
+            /* 2024.02.19 hspark 주석처리
             // Process end - buzzer auto off
             if (Global.GetDigValue((int)DigInputList.Front_Door_Sensor_i) == "Off")
             {
@@ -738,6 +739,7 @@ namespace FluxTool_CleanerSystem_ATV
                         Global.SetDigValue((int)DigOutputList.Buzzer_o, (uint)DigitalOffOn.Off, "PM1");
                 }
             }
+            */
 
             // Daily count init
             string sTime = DateTime.Now.ToString("HH:mm:ss");

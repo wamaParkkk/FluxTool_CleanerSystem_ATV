@@ -51,8 +51,14 @@ namespace FluxTool_CleanerSystem_ATV
             this.txtBoxHeatingTemp = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.checkBoxFront = new System.Windows.Forms.CheckBox();
+            this.checkBoxLeft = new System.Windows.Forms.CheckBox();
+            this.checkBoxBack = new System.Windows.Forms.CheckBox();
+            this.checkBoxRight = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -341,12 +347,76 @@ namespace FluxTool_CleanerSystem_ATV
             this.label5.TabIndex = 24;
             this.label5.Text = "C";
             // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.checkBoxRight);
+            this.groupBox3.Controls.Add(this.checkBoxBack);
+            this.groupBox3.Controls.Add(this.checkBoxLeft);
+            this.groupBox3.Controls.Add(this.checkBoxFront);
+            this.groupBox3.Font = new System.Drawing.Font("Nirmala UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox3.ForeColor = System.Drawing.Color.Navy;
+            this.groupBox3.Location = new System.Drawing.Point(117, 608);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(550, 100);
+            this.groupBox3.TabIndex = 13;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Stop the process when the selected cover is opened";
+            // 
+            // checkBoxFront
+            // 
+            this.checkBoxFront.AutoSize = true;
+            this.checkBoxFront.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxFront.Location = new System.Drawing.Point(118, 46);
+            this.checkBoxFront.Name = "checkBoxFront";
+            this.checkBoxFront.Size = new System.Drawing.Size(80, 29);
+            this.checkBoxFront.TabIndex = 0;
+            this.checkBoxFront.Text = "Front";
+            this.checkBoxFront.UseVisualStyleBackColor = true;
+            this.checkBoxFront.Click += new System.EventHandler(this.checkBoxFront_Click);
+            // 
+            // checkBoxLeft
+            // 
+            this.checkBoxLeft.AutoSize = true;
+            this.checkBoxLeft.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxLeft.Location = new System.Drawing.Point(204, 46);
+            this.checkBoxLeft.Name = "checkBoxLeft";
+            this.checkBoxLeft.Size = new System.Drawing.Size(65, 29);
+            this.checkBoxLeft.TabIndex = 1;
+            this.checkBoxLeft.Text = "Left";
+            this.checkBoxLeft.UseVisualStyleBackColor = true;
+            this.checkBoxLeft.Click += new System.EventHandler(this.checkBoxFront_Click);
+            // 
+            // checkBoxBack
+            // 
+            this.checkBoxBack.AutoSize = true;
+            this.checkBoxBack.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxBack.Location = new System.Drawing.Point(275, 46);
+            this.checkBoxBack.Name = "checkBoxBack";
+            this.checkBoxBack.Size = new System.Drawing.Size(73, 29);
+            this.checkBoxBack.TabIndex = 2;
+            this.checkBoxBack.Text = "Back";
+            this.checkBoxBack.UseVisualStyleBackColor = true;
+            this.checkBoxBack.Click += new System.EventHandler(this.checkBoxFront_Click);
+            // 
+            // checkBoxRight
+            // 
+            this.checkBoxRight.AutoSize = true;
+            this.checkBoxRight.ForeColor = System.Drawing.Color.Black;
+            this.checkBoxRight.Location = new System.Drawing.Point(354, 46);
+            this.checkBoxRight.Name = "checkBoxRight";
+            this.checkBoxRight.Size = new System.Drawing.Size(78, 29);
+            this.checkBoxRight.TabIndex = 3;
+            this.checkBoxRight.Text = "Right";
+            this.checkBoxRight.UseVisualStyleBackColor = true;
+            this.checkBoxRight.Click += new System.EventHandler(this.checkBoxFront_Click);
+            // 
             // ConfigureForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(1172, 824);
+            this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Font = new System.Drawing.Font("Tahoma", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -360,6 +430,8 @@ namespace FluxTool_CleanerSystem_ATV
             this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -386,5 +458,10 @@ namespace FluxTool_CleanerSystem_ATV
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtBoxWaterFillTimeout;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.CheckBox checkBoxBack;
+        private System.Windows.Forms.CheckBox checkBoxLeft;
+        private System.Windows.Forms.CheckBox checkBoxFront;
+        private System.Windows.Forms.CheckBox checkBoxRight;
     }
 }

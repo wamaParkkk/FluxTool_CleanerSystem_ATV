@@ -509,7 +509,7 @@ namespace FluxTool_CleanerSystem_ATV.Squence
                 if (prcsRecipe.Water[prcsRecipe.StepNum - 1] == "On")
                 {
                     Global.SetDigValue((int)DigOutputList.CH3_WaterValve_o, (uint)DigitalOffOn.On, ModuleName);
-                    Global.SetDigValue((int)DigOutputList.CH3_Booster_AirValve_o, (uint)DigitalOffOn.On, ModuleName);
+                    //Global.SetDigValue((int)DigOutputList.CH3_Booster_AirValve_o, (uint)DigitalOffOn.On, ModuleName);
                 }
                 else
                 {
@@ -640,6 +640,15 @@ namespace FluxTool_CleanerSystem_ATV.Squence
                         else
                         {
                             iPinTimeCnt++;
+                        }
+                    }
+
+                    // Water open 후, 5초 후에 Booster air open
+                    if (step.Times >= 5)
+                    {
+                        if (prcsRecipe.Water[prcsRecipe.StepNum - 1] == "On")
+                        {
+                            Global.SetDigValue((int)DigOutputList.CH3_Booster_AirValve_o, (uint)DigitalOffOn.On, ModuleName);
                         }
                     }
 

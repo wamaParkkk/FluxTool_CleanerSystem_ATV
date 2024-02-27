@@ -537,6 +537,12 @@ namespace FluxTool_CleanerSystem_ATV
                             Define.sInterlockChecklist = "";
                         }
                     }
+
+                    // 23'12.11 hspark 요청사항 추가
+                    if (Configure_List.bFrontEnable)
+                    {
+                        PROCESS_ABORT();
+                    }
                 }                
 
                 if (GetDigValue((int)DigInputList.Left_Door_Sensor_i) == "Off")
@@ -552,6 +558,12 @@ namespace FluxTool_CleanerSystem_ATV
                             Define.sInterlockMsg = "";
                             Define.sInterlockChecklist = "";
                         }
+                    }
+
+                    // 23'12.11 hspark 요청사항 추가
+                    if (Configure_List.bLeftEnable)
+                    {
+                        PROCESS_ABORT();
                     }
                 }                
 
@@ -569,6 +581,12 @@ namespace FluxTool_CleanerSystem_ATV
                             Define.sInterlockChecklist = "";
                         }
                     }
+
+                    // 23'12.11 hspark 요청사항 추가
+                    if (Configure_List.bRightEnable)
+                    {
+                        PROCESS_ABORT();
+                    }
                 }               
 
                 if (GetDigValue((int)DigInputList.Back_Door_Sensor_i) == "Off")
@@ -584,6 +602,12 @@ namespace FluxTool_CleanerSystem_ATV
                             Define.sInterlockMsg = "";
                             Define.sInterlockChecklist = "";
                         }
+                    }
+
+                    // 23'12.11 hspark 요청사항 추가
+                    if (Configure_List.bBackEnable)
+                    {
+                        PROCESS_ABORT();
                     }
                 }                
 
@@ -663,7 +687,34 @@ namespace FluxTool_CleanerSystem_ATV
                         sendMsg_Water = "Idle";
                     }
                 }
-                ////////////////////////////////////////////////////////////////////////////////////////////////                
+                ////////////////////////////////////////////////////////////////////////////////////////////////  
+
+
+                // 2024.02.19 hspark 추가
+                // 공정 중 Front door open시 Buzzer on
+                if ((Define.seqCtrl[(byte)MODULE._PM1] != Define.CTRL_IDLE) ||
+                    (Define.seqCtrl[(byte)MODULE._PM2] != Define.CTRL_IDLE) ||
+                    (Define.seqCtrl[(byte)MODULE._PM3] != Define.CTRL_IDLE))
+                {
+                    if ((GetDigValue((int)DigInputList.EMO_Front_i) == "On") &&
+                        (GetDigValue((int)DigInputList.EMO_Rear_i) == "On") &&
+
+                        (GetDigValue((int)DigInputList.Water_Level_Low_i) == "Off"))
+                    {
+                        if ((GetDigValue((int)DigInputList.Front_Door_Sensor_i) == "Off") ||
+                            (GetDigValue((int)DigInputList.Left_Door_Sensor_i) == "Off") ||
+                            (GetDigValue((int)DigInputList.Right_Door_Sensor_i) == "Off") ||
+                            (GetDigValue((int)DigInputList.Back_Door_Sensor_i) == "Off"))
+                        {
+                            if (digSet.curDigSet[(int)DigOutputList.Buzzer_o] != null)
+                            {
+                                if (digSet.curDigSet[(int)DigOutputList.Buzzer_o] != "On")
+                                    SetDigValue((int)DigOutputList.Buzzer_o, (uint)DigitalOffOn.On, "PM1");
+                            }
+                        }
+                    }
+                }
+                ////////////////////////////////////////////////////////////////////////////////////////////////  
             }
 
 
@@ -688,7 +739,7 @@ namespace FluxTool_CleanerSystem_ATV
                         SetDigValue((int)DigOutputList.Hot_Water_Pump_o, (uint)DigitalOffOn.Off, "PM1");
                     }
                 }                
-            }
+            }            
         }
         #endregion
 
@@ -885,15 +936,18 @@ namespace FluxTool_CleanerSystem_ATV
         {
             SetDigValue((int)DigOutputList.CH1_WaterValve_o, (uint)DigitalOffOn.Off, "PM1");            
             SetDigValue((int)DigOutputList.CH1_Air_Knife_o, (uint)DigitalOffOn.Off, "PM1");
-            SetDigValue((int)DigOutputList.CH1_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM1");            
+            SetDigValue((int)DigOutputList.CH1_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM1");
+            SetDigValue((int)DigOutputList.CH1_Booster_AirValve_o, (uint)DigitalOffOn.Off, "PM1");
 
-            SetDigValue((int)DigOutputList.CH1_WaterValve_o, (uint)DigitalOffOn.Off, "PM2");            
-            SetDigValue((int)DigOutputList.CH1_Air_Knife_o, (uint)DigitalOffOn.Off, "PM2");
-            SetDigValue((int)DigOutputList.CH1_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM2");            
+            SetDigValue((int)DigOutputList.CH2_WaterValve_o, (uint)DigitalOffOn.Off, "PM2");            
+            SetDigValue((int)DigOutputList.CH2_Air_Knife_o, (uint)DigitalOffOn.Off, "PM2");
+            SetDigValue((int)DigOutputList.CH2_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM2");
+            SetDigValue((int)DigOutputList.CH2_Booster_AirValve_o, (uint)DigitalOffOn.Off, "PM2");
 
-            SetDigValue((int)DigOutputList.CH1_WaterValve_o, (uint)DigitalOffOn.Off, "PM3");            
-            SetDigValue((int)DigOutputList.CH1_Air_Knife_o, (uint)DigitalOffOn.Off, "PM3");
-            SetDigValue((int)DigOutputList.CH1_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM3");            
+            SetDigValue((int)DigOutputList.CH3_WaterValve_o, (uint)DigitalOffOn.Off, "PM3");            
+            SetDigValue((int)DigOutputList.CH3_Air_Knife_o, (uint)DigitalOffOn.Off, "PM3");
+            SetDigValue((int)DigOutputList.CH3_Curtain_AirValve_o, (uint)DigitalOffOn.Off, "PM3");
+            SetDigValue((int)DigOutputList.CH3_Booster_AirValve_o, (uint)DigitalOffOn.Off, "PM3");
 
             SetDigValue((int)DigOutputList.Hot_Water_Pump_o, (uint)DigitalOffOn.Off, "PM1");
             SetDigValue((int)DigOutputList.Hot_WaterHeater_o, (uint)DigitalOffOn.Off, "PM1");

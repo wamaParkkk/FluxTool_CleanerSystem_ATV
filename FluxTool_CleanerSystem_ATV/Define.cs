@@ -238,6 +238,11 @@ namespace FluxTool_CleanerSystem_ATV
         public static int Water_Fill_Timeout = 0;
 
         public static double Water_Heating_Temp = 0.0;
+
+        public static bool bFrontEnable;
+        public static bool bLeftEnable;
+        public static bool bBackEnable;
+        public static bool bRightEnable;
     }
     ////////////////////////////////////////////////////////
     

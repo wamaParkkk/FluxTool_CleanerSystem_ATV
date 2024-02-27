@@ -2,11 +2,18 @@
 using System.Text;
 using System.Windows.Forms;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace FluxTool_CleanerSystem_ATV
 {
     public partial class ConfigureForm : Form
     {
+        [DllImport("kernel32")]
+        private static extern long WritePrivateProfileString(string section, string key, string val, string filePath);
+
+        [DllImport("kernel32")]
+        private static extern int GetPrivateProfileString(string section, string key, string def, StringBuilder retVal, int size, string filePath);
+
         AnalogDlg AnaDlg;
 
         public ConfigureForm()
@@ -23,6 +30,8 @@ namespace FluxTool_CleanerSystem_ATV
 
             PARAMETER_LOAD();
             TEMP_PARAMETER_LOAD();
+
+            COVER_DOOR_OPTION_LOAD();
         }
 
         private void ConfigureForm_FormClosing(object sender, FormClosingEventArgs e)
@@ -86,6 +95,37 @@ namespace FluxTool_CleanerSystem_ATV
                     }
                 }
             }
+        }
+
+        private void COVER_DOOR_OPTION_LOAD()
+        {
+            try
+            {                
+                // Ini file read
+                StringBuilder sbFront = new StringBuilder();
+                StringBuilder sbLeft = new StringBuilder();
+                StringBuilder sbBack = new StringBuilder();
+                StringBuilder sbRight = new StringBuilder();
+
+                GetPrivateProfileString("Front", "Enable", "", sbFront, sbFront.Capacity, string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                GetPrivateProfileString("Left", "Enable", "", sbLeft, sbLeft.Capacity, string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                GetPrivateProfileString("Back", "Enable", "", sbBack, sbBack.Capacity, string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                GetPrivateProfileString("Right", "Enable", "", sbRight, sbRight.Capacity, string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+
+                Configure_List.bFrontEnable = Convert.ToBoolean(sbFront.ToString().Trim());
+                Configure_List.bLeftEnable = Convert.ToBoolean(sbLeft.ToString().Trim());
+                Configure_List.bBackEnable = Convert.ToBoolean(sbBack.ToString().Trim());
+                Configure_List.bRightEnable = Convert.ToBoolean(sbRight.ToString().Trim());
+
+                checkBoxFront.Checked = Configure_List.bFrontEnable;
+                checkBoxLeft.Checked = Configure_List.bLeftEnable;
+                checkBoxBack.Checked = Configure_List.bBackEnable;
+                checkBoxRight.Checked = Configure_List.bRightEnable;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }            
         }
 
         private void txtBoxDoorOpenCloseTimeout_Click(object sender, EventArgs e)
@@ -179,6 +219,70 @@ namespace FluxTool_CleanerSystem_ATV
                 MessageBox.Show(ex.Message, "Notification");
                 return false;
             }
+        }
+
+        private void checkBoxFront_Click(object sender, EventArgs e)
+        {
+            if (Define.UserLevel == "Master")
+            {
+                try
+                {
+                    CheckBox btn = (CheckBox)sender;
+                    string strText = btn.Text.Trim();
+                    switch (strText)
+                    {
+                        case "Front":
+                            {
+                                Configure_List.bFrontEnable = btn.Checked;
+                                if (Configure_List.bFrontEnable)
+                                    WritePrivateProfileString("Front", "Enable", "True", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                                else
+                                    WritePrivateProfileString("Front", "Enable", "False", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                            }
+                            break;
+
+                        case "Left":
+                            {
+                                Configure_List.bLeftEnable = btn.Checked;
+                                if (Configure_List.bLeftEnable)
+                                    WritePrivateProfileString("Left", "Enable", "True", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                                else
+                                    WritePrivateProfileString("Left", "Enable", "False", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                            }
+                            break;
+
+                        case "Back":
+                            {
+                                Configure_List.bBackEnable = btn.Checked;
+                                if (Configure_List.bBackEnable)
+                                    WritePrivateProfileString("Back", "Enable", "True", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                                else
+                                    WritePrivateProfileString("Back", "Enable", "False", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                            }
+                            break;
+
+                        case "Right":
+                            {
+                                Configure_List.bRightEnable = btn.Checked;
+                                if (Configure_List.bRightEnable)
+                                    WritePrivateProfileString("Right", "Enable", "True", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                                else
+                                    WritePrivateProfileString("Right", "Enable", "False", string.Format("{0}{1}", Global.ConfigurePath, "CoverDoor.ini"));
+                            }
+                            break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Notification", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }                
+            }
+            else
+            {
+                MessageBox.Show("Only master level can be set", "Notification", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                COVER_DOOR_OPTION_LOAD();
+            }                              
         }
     }
 }
