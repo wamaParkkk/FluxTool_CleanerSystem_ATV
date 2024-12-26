@@ -191,8 +191,7 @@
     <Compile Include="RecipeSelectForm.Designer.cs">
       <DependentUpon>RecipeSelectForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="SerialComm\Hanyoung_NX.cs" />
-    <Compile Include="SerialComm\NOVA_ST541.cs" />
+    <Compile Include="SerialComm\HanyoungNux_Temp.cs" />
     <Compile Include="Squence\PM1Cylinder.cs" />
     <Compile Include="Squence\PM1Process.cs" />
     <Compile Include="Squence\PM2Cylinder.cs" />
@@ -226,6 +225,7 @@
     </Compile>
     <EmbeddedResource Include="AlarmForm.resx">
       <DependentUpon>AlarmForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="AnalogDlg.resx">
       <DependentUpon>AnalogDlg.cs</DependentUpon>
