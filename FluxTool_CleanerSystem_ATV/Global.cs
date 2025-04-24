@@ -51,7 +51,7 @@ namespace FluxTool_CleanerSystem_ATV
         public static string serialPortInfoPath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\"));
         public static string dailyCntfilePath = Path.GetFullPath(Path.Combine(System.AppContext.BaseDirectory, @"..\..\DailyCount\"));
         
-        public static string hostEquipmentInfo_Log = "K5EE_FluxtoolCleaningSystemLog";
+        public static string hostEquipmentInfo_Log = "K5EE_FluxtoolCleaningSystemLog_ATV";
 
         private static Timer timer = new Timer();
 
